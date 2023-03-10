@@ -1,0 +1,21 @@
+{
+  "name": "mrkrabsbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "discord.js": "^14.7.2-dev.1678407057-1b29099.0",
+    "dotenv": "^16.0.3",
+    "glob": "^9.2.1"
+  },
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  }
+}
