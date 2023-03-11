@@ -35,6 +35,6 @@ export async function loadEvents(client) {
     });
 
     console.table(events, ["Event", "Status"]);
-    console.info("\nm%s", chalk.green("Loaded Events"));
+    console.info("\n%s\x1b[0m", chalk.green("Loaded Events"));
     console.timeEnd("Events Loaded");
 }
