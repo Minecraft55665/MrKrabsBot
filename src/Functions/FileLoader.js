@@ -17,19 +17,13 @@ export async function deleteCachedFile(file) {
 // By Lyxcode (https://youtube.com/@lyx)
 /**
  * @param {string} directoryName
- * @param {boolean | undefined} [srcFolder]
  * @return {Promise<string[]>}
  */
-export async function loadFiles(directoryName, srcFolder = true) {
+export async function loadFiles(directoryName) {
     try {
         const files = await glob(
             path
-                .join(
-                    process.cwd(),
-                    srcFolder ? "/src/" : "/",
-                    directoryName,
-                    "/**/*.js"
-                )
+                .join(process.cwd(), directoryName, "/**/*.js")
                 .replace(/\\/g, "/")
         );
         const jsFiles = files.filter((file) => path.extname(file) === "js");
