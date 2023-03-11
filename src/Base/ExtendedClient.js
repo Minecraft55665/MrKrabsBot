@@ -1,5 +1,8 @@
 import chalk from "chalk";
-import { Client, Collection, ClientOptions } from "discord.js";
+import DiscordJS, { Client, Collection } from "discord.js";
+import config from "../../Configuration/config.json" assert { type: "json" };
+
+const { ClientOptions } = DiscordJS;
 
 export class ExtendedClient extends Client {
     /**
@@ -7,11 +10,11 @@ export class ExtendedClient extends Client {
      */
     constructor(options) {
         super(options);
-
-        this.commands = new Collection();
-        this.events = new Collection();
-        this.config = import("../../Configuration/config.json");
     }
+
+    commands = new Collection();
+    events = new Collection();
+    config = config;
 
     /**
      * Runs the client.
