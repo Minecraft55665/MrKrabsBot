@@ -1,6 +1,8 @@
 import chalk from "chalk";
 import DiscordJS, { Client, Collection } from "discord.js";
+// eslint-disable-next-line
 import config from "../../Configuration/config.json" assert { type: "json" };
+import { loadEvents } from "../Handlers/index.js";
 
 const { ClientOptions } = DiscordJS;
 
@@ -24,6 +26,8 @@ export class ExtendedClient extends Client {
     async start(token) {
         await this.login(token)
             .then((_value) => {
+                loadEvents(this);
+
                 console.log(chalk.green(`Logged in as client.`));
             })
             .catch((reason) => {
