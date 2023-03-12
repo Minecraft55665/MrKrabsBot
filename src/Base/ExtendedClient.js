@@ -2,11 +2,9 @@ import chalk from "chalk";
 import DiscordJS, { Client, Collection } from "discord.js";
 import { readFileSync } from "node:fs";
 import { loadCommands, loadEvents } from "../Handlers/index.js";
+import config from "../../Configuration/config.json" assert { type: "json" };
 
 const { ClientOptions } = DiscordJS;
-
-const fileURL = new URL("../../Configuration/config.json", import.meta.url);
-const packageJSON = JSON.parse(readFileSync(fileURL));
 
 export class ExtendedClient extends Client {
     /**
@@ -18,7 +16,7 @@ export class ExtendedClient extends Client {
 
     commands = new Collection();
     events = new Collection();
-    config = packageJSON;
+    config = config;
 
     /**
      * Runs the client.

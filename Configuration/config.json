@@ -1,3 +1,11 @@
 {
-    "envPath": "./src/Environment/.env"
+    "envPath": "./src/Environment/.env",
+    "embed": {
+        "color": {
+            "default": "#BE0000",
+            "invisible": "#36393F",
+            "error": "#FF0000",
+            "success": "#00F000"
+        }
+    }
 }
