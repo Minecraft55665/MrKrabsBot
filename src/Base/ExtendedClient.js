@@ -3,6 +3,7 @@ import DiscordJS, { Client, Collection } from "discord.js";
 import { readFileSync } from "node:fs";
 import { loadCommands, loadEvents } from "../Handlers/index.js";
 import config from "../../Configuration/config.json" assert { type: "json" };
+import mongoose from "mongoose";
 
 const { ClientOptions } = DiscordJS;
 
@@ -28,6 +29,19 @@ export class ExtendedClient extends Client {
             .then((_value) => {
                 loadEvents(this);
                 loadCommands(this);
+
+                mongoose
+                    .connect(process.env.MONGO_URI, {
+                        useNewUrlParser: true,
+                        useUnifiedTopology: true,
+                        keepAlive: true,
+                    })
+                    .then(() => {
+                        console.log(chalk.green(`Connected to MongoDB!`));
+                    })
+                    .catch((error) => {
+                        throw error;
+                    });
 
                 console.log(chalk.green(`Logged in as client.`));
             })
