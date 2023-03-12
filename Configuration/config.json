@@ -3,7 +3,7 @@
     "embed": {
         "color": {
             "default": "#BE0000",
-            "invisible": "#36393F",
+            "transparent": "#2f3136",
             "error": "#FF0000",
             "success": "#00F000"
         }
