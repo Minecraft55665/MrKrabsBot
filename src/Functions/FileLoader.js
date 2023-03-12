@@ -1,6 +1,9 @@
 import chalk from "chalk";
 import { glob } from "glob";
 import path from "node:path";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
 
 // By Lyxcode (https://youtube.com/@lyx)
 /**
@@ -21,12 +24,11 @@ export async function deleteCachedFile(file) {
  */
 export async function loadFiles(directoryName) {
     try {
-        const files = await glob(
-            path
-                .join(process.cwd(), directoryName, "/**/*.js")
-                .replace(/\\/g, "/")
-        );
-        const jsFiles = files.filter((file) => path.extname(file) === "js");
+        const pattern = path
+            .join(process.cwd(), "src/" + directoryName, "/**/*.js")
+            .replace(/\\/g, "/");
+        const files = await glob(pattern);
+        const jsFiles = files.filter((file) => path.extname(file) === ".js");
         await Promise.all(jsFiles.map(deleteCachedFile));
         return jsFiles;
     } catch (error) {
