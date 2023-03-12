@@ -1,10 +1,12 @@
 import chalk from "chalk";
 import DiscordJS, { Client, Collection } from "discord.js";
-// eslint-disable-next-line
-import config from "../../Configuration/config.json" assert { type: "json" };
+import { readFileSync } from "node:fs";
 import { loadEvents } from "../Handlers/index.js";
 
 const { ClientOptions } = DiscordJS;
+
+const fileURL = new URL("../../Configuration/config.json", import.meta.url);
+const packageJSON = JSON.parse(readFileSync(fileURL));
 
 export class ExtendedClient extends Client {
     /**
@@ -16,7 +18,7 @@ export class ExtendedClient extends Client {
 
     commands = new Collection();
     events = new Collection();
-    config = config;
+    config = packageJSON;
 
     /**
      * Runs the client.
