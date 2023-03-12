@@ -13,30 +13,31 @@ export async function loadCommands(client) {
     client.commands = new Map();
     const commands = new Array();
 
+    const commandsTable = new Array();
+
     const files = await loadFiles("Commands");
 
     for (const file of files) {
         try {
-            const command = require(file);
+            const command = await import(file);
             const command_ = command.default;
-            const execute = (interaction, client) =>
-                command_.execute(interaction, client);
 
-            client.commands.set(command_.data.name, execute);
+            client.commands.set(command_.data.name, command_);
 
-            commands.push({ Command: command_.data.name, Status: `Loaded` });
-        } catch (error) {
-            commands.push({
-                Command: file.split("/").pop().slice(0, -3),
-                Status: `Error`,
+            commandsTable.push({
+                Command: command_.data.name,
+                Status: `Loaded`,
             });
+            commands.push(command_.data.toJSON());
+        } catch (error) {
+            commandsTable.push({ Command: file.split("/").pop().slice(0, -3) });
             throw error;
         }
 
         client.application.commands.set(commands);
 
-        console.table(commands, ["Command", "Status"]);
+        console.table(commandsTable, ["Command", "Status"]);
         console.info("%s\x1b[0m", chalk.green(`Loaded Commands`));
-        console.time("Commands Loaded");
+        console.timeEnd("Commands Loaded");
     }
 }

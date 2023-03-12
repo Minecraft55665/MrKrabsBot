@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import DiscordJS, { Client, Collection } from "discord.js";
 import { readFileSync } from "node:fs";
-import { loadEvents } from "../Handlers/index.js";
+import { loadCommands, loadEvents } from "../Handlers/index.js";
 
 const { ClientOptions } = DiscordJS;
 
@@ -29,6 +29,7 @@ export class ExtendedClient extends Client {
         await this.login(token)
             .then((_value) => {
                 loadEvents(this);
+                loadCommands(this);
 
                 console.log(chalk.green(`Logged in as client.`));
             })
