@@ -1,5 +1,4 @@
 import { loadFiles } from "../Functions/index.js";
-// eslint-disable-next-line no-unused-vars
 import { ExtendedClient } from "../Base/index.js";
 import chalk from "chalk";
 
