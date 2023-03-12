@@ -2,7 +2,6 @@ import {
     CommandInteraction,
     SlashCommandBuilder,
     EmbedBuilder,
-    Colors,
 } from "discord.js";
 import { ExtendedClient } from "../../Base/index.js";
 
@@ -18,12 +17,12 @@ export default {
         const now = Date.now();
 
         const pingEmbed = new EmbedBuilder()
-            .setTitle(`Pong!`)
+            .setTitle(`Pong! ${client.config.messages.emojis.check}`)
             .addFields([
                 { name: `Message Ping`, value: `_Pinging..._` },
                 { name: `WebSocket`, value: `${client.ws.ping}ms` },
             ])
-            .setColor();
+            .setColor(client.config.embed.color.transparent);
 
         interaction
             .reply({
