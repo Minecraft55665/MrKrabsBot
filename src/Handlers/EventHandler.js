@@ -14,27 +14,29 @@ export async function loadEvents(client) {
     client.events = new Map();
     const events = new Array();
 
-    const files = await loadFiles("Events", true);
+    const files = await loadFiles("Events");
 
-    files.forEach(async (file) => {
+    for (const file of files) {
         try {
             const event = await import(file);
-            const execute = (...args) => event.execute(...args, client);
-            const target = event.rest ? client.rest : client;
+            const event_ = event.default;
+            const execute = (...args) => event_.execute(...args, client);
+            const target = event_.rest ? client.rest : client;
 
-            target[event.once ? "once" : "on"](event.name, execute);
-            client.events.set(event.name, execute);
+            target[event_.once ? "once" : "on"](event_.name, execute);
+            client.events.set(event_.name, execute);
 
-            events.push({ Event: event.name, Status: chalk.green(`Loaded`) });
+            events.push({ Event: event_.name, Status: `Loaded` });
         } catch (error) {
             events.push({
                 Event: file.split("/").pop().slice(0, -3),
-                Status: chalk.red(`Error`),
+                Status: `Error`,
             });
+            throw error;
         }
-    });
+    }
 
     console.table(events, ["Event", "Status"]);
-    console.info("\n%s\x1b[0m", chalk.green("Loaded Events"));
+    console.info("%s\x1b[0m", chalk.green("Loaded Events"));
     console.timeEnd("Events Loaded");
 }
