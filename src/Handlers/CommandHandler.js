@@ -15,14 +15,16 @@ export async function loadCommands(client) {
 
     const commandsTable = new Array();
 
-    const files = await loadFiles("Commands");
+    const { jsFiles, parentDirs } = await loadFiles("Commands");
 
-    for (const file of files) {
+    for (const file of jsFiles) {
         try {
             const command = await import(file);
             const command_ = command.default;
 
-            client.commands.set(command_.data.name, command_);
+            const properties = { parentDirs, file };
+
+            client.commands.set(command_.data.name, properties);
 
             commandsTable.push({
                 Command: command_.data.name,

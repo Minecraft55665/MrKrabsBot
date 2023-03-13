@@ -13,9 +13,9 @@ export async function loadEvents(client) {
     client.events = new Map();
     const events = new Array();
 
-    const files = await loadFiles("Events");
+    const { jsFiles } = await loadFiles("Events");
 
-    for (const file of files) {
+    for (const file of jsFiles) {
         try {
             const event = await import(file);
             const event_ = event.default;

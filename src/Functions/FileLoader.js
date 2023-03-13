@@ -20,7 +20,13 @@ export async function deleteCachedFile(file) {
 // By Lyxcode (https://youtube.com/@lyx)
 /**
  * @param {string} directoryName
- * @return {Promise<string[]>}
+ * @return {Promise<{
+ *  jsFiles: string[];
+ *  parentDirs: {
+ *      path: string;
+ *      parentDir: string | undefined
+ *  }
+ * }>}
  */
 export async function loadFiles(directoryName) {
     try {
@@ -30,7 +36,19 @@ export async function loadFiles(directoryName) {
         const files = await glob(pattern);
         const jsFiles = files.filter((file) => path.extname(file) === ".js");
         await Promise.all(jsFiles.map(deleteCachedFile));
-        return jsFiles;
+
+        const parentDirs = [];
+
+        for (const file of jsFiles) {
+            const parentDir = path.dirname(file).split(path.sep).pop();
+            if (file.includes("/Commands/")) {
+                parentDirs.push({ path: file, parentDir: `${parentDir}` });
+            } else if (parentDir !== "") {
+                parentDirs.push({ path: file, parentDir });
+            }
+        }
+
+        return { jsFiles, parentDirs };
     } catch (error) {
         console.error(
             chalk.red(`Error while loading files from ${directoryName}.`)
