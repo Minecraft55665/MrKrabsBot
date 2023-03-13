@@ -1,8 +1,8 @@
 import { GatewayIntentBits, Partials } from "discord.js";
-import { ExtendedClient as Client } from "./Base/ExtendedClient.js";
+import { ExtendedClient } from "./Base/index.js";
 import { config } from "dotenv";
 
-const client = new Client({
+const client = new ExtendedClient({
     intents: [Object.keys(GatewayIntentBits)],
     partials: [Object.keys(Partials)],
 });

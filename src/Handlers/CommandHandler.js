@@ -33,11 +33,11 @@ export async function loadCommands(client) {
             commandsTable.push({ Command: file.split("/").pop().slice(0, -3) });
             throw error;
         }
-
-        client.application.commands.set(commands);
-
-        console.table(commandsTable, ["Command", "Status"]);
-        console.info("%s\x1b[0m", chalk.green(`Loaded Commands`));
-        console.timeEnd("Commands Loaded");
     }
+
+    client.application.commands.set(commands);
+
+    console.table(commandsTable, ["Command", "Status"]);
+    console.info("%s\x1b[0m", chalk.green(`Loaded Commands`));
+    console.timeEnd("Commands Loaded");
 }

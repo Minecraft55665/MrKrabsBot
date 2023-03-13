@@ -1,8 +1,7 @@
 import chalk from "chalk";
 import DiscordJS, { Client, Collection } from "discord.js";
-import { readFileSync } from "node:fs";
-import { loadCommands, loadEvents } from "../Handlers/index.js";
 import config from "../../Configuration/config.json" assert { type: "json" };
+import { loadCommands, loadEvents } from "../Handlers/index.js";
 import mongoose from "mongoose";
 
 const { ClientOptions } = DiscordJS;
@@ -27,8 +26,8 @@ export class ExtendedClient extends Client {
     async start(token) {
         await this.login(token)
             .then((_value) => {
-                loadEvents(this);
                 loadCommands(this);
+                loadEvents(this);
 
                 mongoose
                     .connect(process.env.MONGO_URI, {
