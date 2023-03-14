@@ -22,7 +22,7 @@ export async function loadCommands(client) {
             const command = await import(file);
             const command_ = command.default;
 
-            const properties = { parentDirs, file };
+            const properties = { parentDirs, command: command_ };
 
             client.commands.set(command_.data.name, properties);
 

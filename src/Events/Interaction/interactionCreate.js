@@ -11,21 +11,25 @@ export default {
         if (!interaction.isChatInputCommand()) return;
 
         const command = client.commands.get(interaction.commandName);
+        const { command: command_ } = command;
 
-        if (command.developer && interaction.user.id !== process.env.OWNER_ID) {
+        if (
+            command_.developer &&
+            interaction.user.id !== process.env.OWNER_ID
+        ) {
             return interaction.reply({
                 content: `This interaction is only available for the developer of this bot.`,
                 ephemeral: true,
             });
         }
 
-        if (!command) {
+        if (!command_) {
             return interaction.reply({
                 content: `Interaction either outdated/expired or unavailable.`,
                 ephemeral: true,
             });
         }
 
-        command.execute(interaction, client);
+        command_.execute(interaction, client);
     },
 };
