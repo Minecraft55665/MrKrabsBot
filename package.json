@@ -33,6 +33,7 @@
         "discord.js": "^14.7.2-dev.1678407057-1b29099.0",
         "dotenv": "^16.0.3",
         "glob": "^9.2.1",
+        "luxon": "^3.3.0",
         "mongoose": "^7.0.1"
     },
     "devDependencies": {
