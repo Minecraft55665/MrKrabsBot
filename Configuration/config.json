@@ -14,5 +14,15 @@
             "xmark": "<:xmark:1078319342653014139>",
             "empty": "<:empty:1078319378828902453>"
         }
+    },
+    "commands": {
+        "help": {
+            "category_emojis": {
+                "public": "🌐"
+            },
+            "category_descriptions": {
+                "public": "Commands that can be used by everyone."
+            }
+        }
     }
 }
